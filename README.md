@@ -1,4 +1,4 @@
-<h1>Introduction>/h1>
+<h1>Introduction</h1>
 
 <p>We’re making a Tic Tac Toe game you can play in your browser!</p>
 
