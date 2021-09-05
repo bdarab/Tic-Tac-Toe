@@ -19,14 +19,26 @@ const game = () => {
 
   const winningMessageElement = document.querySelector('#winning-message')
 
+  const restartBtn = document.querySelector('#resBtn')
+
   const winningMessage = document.querySelector('[data-winner-message]')
 
   let circleTurn
   
-  boardCell.forEach(cell => {
-      cell.addEventListener('click', handleClick, { once: true })
-    })
+  startGame()
 
+  restartBtn.addEventListener('click', startGame)
+    function startGame() {
+      circleTurn = false
+      boardCell.forEach(cell => {
+        cell.classList.remove(xPlayer)
+        cell.classList.remove(circlePlayer)
+        cell.removeEventListener('click', handleClick)
+        cell.addEventListener('click', handleClick, { once: true })
+      })
+      winningMessageElement.classList.remove('show')
+    }
+  
   function handleClick (e) {
     const cell = e.target
     const currentPlayer = circleTurn ? circlePlayer : xPlayer
