@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-use-before-define */
 
@@ -15,6 +16,8 @@ const game = () => {
     [0, 3, 6],
     [2, 5, 8]
   ]
+  const board = document.querySelector('#board')
+
   const boardCell = document.querySelectorAll('[data-cell]')
 
   const winningMessageElement = document.querySelector('#winning-message')
@@ -45,8 +48,9 @@ const game = () => {
     markPlay(cell, currentPlayer)
     // check for win
     if (winnerPlayer(currentPlayer)) {
-      // check for draw
       endGame(false) 
+    } else if (checkDraw()) {
+      endGame(true)
     } else {
       // switch turn
       toggleTurns()
@@ -55,13 +59,16 @@ const game = () => {
 
   function endGame (draw) {
     if (draw) {
-
+      winningMessage.innerText = "It's a Tie!"
     } else {
       winningMessage.innerText = `${circleTurn ? "O's" : "X's"} Wins!`
     }
     winningMessageElement.classList.add('show')
   }
 
+  function checkDraw (draw) {
+    return [...boardCell].every(cell => cell.classList.contains(xPlayer) || cell.classList.contains(circlePlayer))
+  }
 
   function markPlay (cell, currentPlayer) {
     cell.classList.add(currentPlayer)
@@ -72,11 +79,9 @@ const game = () => {
     }
   
   function winnerPlayer (currentPlayer) {
-    return winResult.some(results => {
-      return results.every(index => {
-        return boardCell[index].classList.contains(currentPlayer)
-      })
-    })
+    return winResult.some(results => 
+      results.every(index => 
+      boardCell[index].classList.contains(currentPlayer)))
   }
   return (handleClick, markPlay, toggleTurns)
 }
