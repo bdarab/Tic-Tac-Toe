@@ -29,7 +29,7 @@ const game = () => {
   let circleTurn
   
   startGame()
-
+  winningMessageElement.classList.add('show')
   restartBtn.addEventListener('click', startGame)
     function startGame() {
       circleTurn = false
